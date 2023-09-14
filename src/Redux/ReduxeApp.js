@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 // rest of the code
 import ReduxDataFlowDiagram from './ReduxDataFlowDiagram.gif'
 import './GridComponent.css';
@@ -10,16 +10,23 @@ import './GridComponent.css';
 // import { useDispatch } from "react-redux";
 
 import { useSelector, useDispatch } from 'react-redux';
-import { increment, decrement } from './Store/actions/action';
+import { increment, decrement, logIn, logOUt } from './Store/actions/action';
 import { CodeBlock } from "react-code-blocks";
 
 function ReduxeApp() {
 
 
-  const count = useSelector((state) => state);
+  const count = useSelector((state) => state.reducer);
+  const loginState = useSelector((state) => state.LoginReducer);
+
+  const test = useSelector((state) => state);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    console.log(test);
 
+
+  }, [count, test, dispatch])
   return (
     <div>
 
@@ -128,13 +135,23 @@ function ReduxeApp() {
           </div>
         </div>
 
+          <div className="item5"><h2>Heloo redux</h2> <div >
+            <div>
+              <p>Count: {loginState ? 'true' : 'false'}</p>
+              <button onClick={() => dispatch(logIn())}>Loigin</button>
+              <button onClick={() => dispatch(logOUt())}>logOUt</button>
+            </div>
+          </div>
 
 
+
+
+          </div>
         </div>
+
+
+
       </div>
-
-
-
     </div>
   )
 }
